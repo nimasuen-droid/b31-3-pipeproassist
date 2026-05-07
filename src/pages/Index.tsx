@@ -273,7 +273,7 @@ function FloatingWorkflowNav({
   };
 
   return (
-    <div className="absolute bottom-3 left-3 right-3 z-50 flex items-end justify-between gap-2 pointer-events-none md:bottom-6 md:left-auto md:right-6 md:flex-col">
+    <div className="sticky bottom-3 z-50 mt-4 flex items-end justify-between gap-2 pointer-events-none md:bottom-6 md:flex-col md:items-end">
       <div className="flex min-w-0 max-w-[calc(100vw-6rem)] flex-wrap gap-2 pointer-events-none md:max-w-full md:flex-col md:items-end">
         {previousTab && (
           <button
@@ -434,16 +434,14 @@ export default function Index() {
           </nav>
 
           <div className="relative flex min-w-0 flex-1">
-            <main ref={mainRef} data-onboarding="main" className="flex-1 overflow-y-auto p-3 pb-28 sm:p-4 sm:pb-28 md:p-6 md:pb-20 lg:pb-16">
+            <main ref={mainRef} data-onboarding="main" className="flex-1 overflow-y-auto p-3 pb-6 sm:p-4 sm:pb-8 md:p-6 md:pb-8">
               <div className="mx-auto max-w-5xl">
                 <Suspense fallback={<ModuleFallback />}>
                   {renderModule()}
                 </Suspense>
+                <FloatingWorkflowNav activeTab={activeTab} onNavigate={setActiveTab} />
               </div>
             </main>
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto max-w-5xl">
-              <FloatingWorkflowNav activeTab={activeTab} onNavigate={setActiveTab} />
-            </div>
           </div>
 
           <div data-onboarding="output" className="hidden lg:flex">
