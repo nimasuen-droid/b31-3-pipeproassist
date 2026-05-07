@@ -273,7 +273,7 @@ function FloatingWorkflowNav({
   };
 
   return (
-    <div className="fixed bottom-[calc(env(safe-area-inset-bottom)+78px)] left-3 right-3 z-50 mx-auto flex max-w-5xl items-end justify-between gap-2 pointer-events-none md:left-56 md:right-6 md:bottom-6 md:mx-0 md:max-w-none md:flex-col">
+    <div className="absolute bottom-3 left-3 right-3 z-50 flex items-end justify-between gap-2 pointer-events-none md:bottom-6 md:left-auto md:right-6 md:flex-col">
       <div className="flex min-w-0 max-w-[calc(100vw-6rem)] flex-wrap gap-2 pointer-events-none md:max-w-full md:flex-col md:items-end">
         {previousTab && (
           <button
@@ -433,19 +433,23 @@ export default function Index() {
             </button>
           </nav>
 
-          <main ref={mainRef} data-onboarding="main" className="flex-1 overflow-y-auto p-3 pb-28 sm:p-4 sm:pb-28 md:p-6 md:pb-20 lg:pb-16">
-            <div className="mx-auto max-w-5xl">
-              <Suspense fallback={<ModuleFallback />}>
-                {renderModule()}
-              </Suspense>
+          <div className="relative flex min-w-0 flex-1">
+            <main ref={mainRef} data-onboarding="main" className="flex-1 overflow-y-auto p-3 pb-28 sm:p-4 sm:pb-28 md:p-6 md:pb-20 lg:pb-16">
+              <div className="mx-auto max-w-5xl">
+                <Suspense fallback={<ModuleFallback />}>
+                  {renderModule()}
+                </Suspense>
+              </div>
+            </main>
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto max-w-5xl">
+              <FloatingWorkflowNav activeTab={activeTab} onNavigate={setActiveTab} />
             </div>
-          </main>
+          </div>
 
           <div data-onboarding="output" className="hidden lg:flex">
             <TraceabilityPanel />
           </div>
         </div>
-        <FloatingWorkflowNav activeTab={activeTab} onNavigate={setActiveTab} />
         <MobileBottomNav activeTab={activeTab} onChange={setActiveTab} allTabs={tabs} />
         <OnboardingTour open={onboarding.open} onClose={onboarding.close} onNavigate={setActiveTab} />
         <InstallBanner enabled={!onboarding.open} />
