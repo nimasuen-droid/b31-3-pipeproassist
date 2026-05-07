@@ -89,7 +89,7 @@ export function PaidGate({ moduleId, moduleName, children, onGoToInputs, onGoToP
                   className="inline-flex min-h-10 items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground hover:bg-primary/90"
                 >
                   <Sparkles className="h-3.5 w-3.5" />
-                  Go to Inputs &amp; Load Default Dataset
+                  Go to Inputs &amp; Load Sample Data
                 </button>
               )}
               <button

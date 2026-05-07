@@ -399,7 +399,7 @@ export function DesignInputsModule() {
       <div className="flex flex-wrap items-center gap-2 p-2 rounded-lg border border-dashed border-muted-foreground/30 bg-muted/30">
         <button onClick={loadSampleData}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
-          <Shuffle className="h-3.5 w-3.5" /> Load Default Dataset
+          <Shuffle className="h-3.5 w-3.5" /> Load Sample Data
         </button>
         <button onClick={clearAllFields}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md bg-destructive text-destructive-foreground hover:bg-destructive/90 transition-colors">
@@ -412,7 +412,7 @@ export function DesignInputsModule() {
               : "Reference workflow · Unlimited dataset runs"}
           </span>
         )}
-        <span className={`text-[10px] text-muted-foreground hidden sm:inline ${!isPaid ? "" : "ml-auto"}`}>Load default dataset → Calculate → review recommendations</span>
+        <span className={`text-[10px] text-muted-foreground hidden sm:inline ${!isPaid ? "" : "ml-auto"}`}>Load sample data → Calculate → review recommendations</span>
       </div>
       {/* Sentinel: when this scrolls out of view, the floating Calculate FAB appears */}
       <div ref={sentinelRef} aria-hidden="true" className="h-px" />
@@ -688,7 +688,7 @@ export function DesignInputsModule() {
         onClick={handleCalculate}
         aria-label="Calculate and recommend"
         title="Calculate & Recommend"
-        className={`fixed right-4 md:right-6 bottom-[calc(env(safe-area-inset-bottom)+88px)] md:bottom-6 z-40 inline-flex items-center gap-2 px-4 py-3 rounded-full bg-sky-700 text-white text-sm font-semibold shadow-lg shadow-sky-900/30 ring-1 ring-sky-500/40 hover:bg-sky-800 transition-all duration-200 ${
+        className={`fixed right-4 md:right-6 bottom-[calc(env(safe-area-inset-bottom)+148px)] md:bottom-20 z-40 inline-flex items-center gap-2 px-4 py-3 rounded-full bg-sky-700 text-white text-sm font-semibold shadow-lg shadow-sky-900/30 ring-1 ring-sky-500/40 hover:bg-sky-800 transition-all duration-200 ${
           showFloatingCalc ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"
         }`}
       >

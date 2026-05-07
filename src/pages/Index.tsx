@@ -5,6 +5,7 @@ import {
   Bolt, Gauge, ClipboardCheck, FileOutput, BookOpen,
   ChevronLeft, ChevronRight, FolderOpen, FileText, Library, HelpCircle,
   Disc, Sparkles, Info, Scale, Lock, Crown, Shield, Receipt,
+  Menu,
 } from "lucide-react";
 import { OnboardingTour, useOnboarding } from "@/components/OnboardingTour";
 import { MobileBottomNav } from "@/components/MobileBottomNav";
@@ -16,6 +17,7 @@ import { PricingPage } from "@/components/PricingPage";
 import { DATASET_VERSION, APP_VERSION } from "@/lib/appVersion";
 import { PRODUCT_NAME, PRODUCT_SHORT_NAME } from "@/lib/brand";
 import { Badge } from "@/components/ui/badge";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useDesignInputs, DesignInputsProvider } from "@/stores/designInputsStore";
 import { useSelectedProject } from "@/hooks/useSelectedProject";
 import { ChangeProjectDialog } from "@/components/ChangeProjectDialog";
@@ -100,6 +102,20 @@ const tabs = [
   { id: "eula", label: "Terms (EULA)", icon: Scale },
   { id: "privacy", label: "Privacy", icon: Shield },
   { id: "refund", label: "Refund Policy", icon: Receipt },
+];
+
+const workflowTabIds = [
+  "inputs",
+  "material",
+  "thickness",
+  "schedule",
+  "flanges",
+  "bolting",
+  "valves",
+  "support",
+  "checks",
+  "reports",
+  "pms",
 ];
 
 function SessionHeader({ mobileMenuOpen, setMobileMenuOpen, onStartTour }: { mobileMenuOpen: boolean; setMobileMenuOpen: (v: boolean) => void; onStartTour: () => void }) {
@@ -234,11 +250,89 @@ function NavTabButton({ tab, active, collapsed, onClick, onPrefetch }: {
   );
 }
 
+function FloatingWorkflowNav({
+  activeTab,
+  onNavigate,
+}: {
+  activeTab: string;
+  onNavigate: (id: string) => void;
+}) {
+  const { calculated } = useDesignInputs();
+  const { isPaid } = useEntitlements();
+  const [open, setOpen] = useState(false);
+  const workflowTabs = workflowTabIds
+    .map((id) => tabs.find((tab) => tab.id === id))
+    .filter(Boolean) as typeof tabs;
+  const activeIndex = workflowTabs.findIndex((tab) => tab.id === activeTab);
+  const nextTab = activeIndex >= 0 ? workflowTabs[activeIndex + 1] : workflowTabs[0];
+
+  const go = (id: string) => {
+    onNavigate(id);
+    setOpen(false);
+  };
+
+  return (
+    <div className="fixed bottom-[calc(env(safe-area-inset-bottom)+84px)] left-3 right-3 z-50 flex items-end justify-between gap-2 pointer-events-none md:left-auto md:right-6 md:bottom-6 md:flex-col">
+      {calculated && nextTab && (
+        <button
+          onClick={() => go(nextTab.id)}
+          className="pointer-events-auto inline-flex min-h-11 items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-black/35 ring-1 ring-primary/30 hover:brightness-110"
+        >
+          Next: {nextTab.label}
+          <ChevronRight className="h-4 w-4" />
+        </button>
+      )}
+
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetTrigger asChild>
+          <button className="pointer-events-auto ml-auto inline-flex min-h-12 min-w-12 items-center justify-center gap-2 rounded-full border border-border bg-card px-4 py-3 text-sm font-semibold text-foreground shadow-lg shadow-black/35 hover:bg-secondary">
+            <Menu className="h-5 w-5" />
+            <span className="hidden sm:inline">Workflow</span>
+          </button>
+        </SheetTrigger>
+        <SheetContent side="right" className="w-[min(92vw,380px)] overflow-y-auto p-0">
+          <SheetHeader className="sticky top-0 z-10 border-b border-border bg-background p-4 text-left">
+            <SheetTitle>Workflow Navigation</SheetTitle>
+          </SheetHeader>
+          <div className="space-y-2 p-3">
+            {workflowTabs.map((tab, index) => {
+              const locked = !isPaid && !FREE_MODULE_IDS.has(tab.id);
+              const active = tab.id === activeTab;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => go(tab.id)}
+                  className={`flex w-full min-h-14 items-center gap-3 rounded-md border p-3 text-left transition-colors ${
+                    active
+                      ? "border-primary bg-primary/10 text-primary"
+                      : "border-border bg-card text-foreground hover:bg-secondary"
+                  }`}
+                >
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border bg-background text-xs font-mono">
+                    {index + 1}
+                  </span>
+                  <tab.icon className="h-4 w-4 shrink-0" />
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-sm font-semibold">{tab.label}</span>
+                    {locked && <span className="block text-xs text-amber-300">Licensed workspace module</span>}
+                  </span>
+                  {active && <Badge variant="outline" className="text-[10px]">Current</Badge>}
+                </button>
+              );
+            })}
+          </div>
+        </SheetContent>
+      </Sheet>
+    </div>
+  );
+}
+
 
 export default function Index() {
   const [activeTab, setActiveTab] = useLocalStorage<string>("ui:active-tab", "home");
   const [sidebarCollapsed, setSidebarCollapsed] = useLocalStorage<boolean>("ui:sidebar-collapsed", false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mainRef = useRef<HTMLElement>(null);
   const onboarding = useOnboarding();
 
   // After mount, prefetch commonly used module chunks during browser idle time
@@ -253,6 +347,10 @@ export default function Index() {
       setTimeout(() => Object.keys(importers).forEach(prefetchModule), priority.length * 150 + 500);
     });
   }, []);
+
+  useEffect(() => {
+    mainRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  }, [activeTab]);
 
   const tabLabel = (id: string) => tabs.find(t => t.id === id)?.label ?? id;
   const gate = (id: string, node: React.ReactNode) =>
@@ -323,7 +421,7 @@ export default function Index() {
             </button>
           </nav>
 
-          <main data-onboarding="main" className="flex-1 overflow-y-auto p-3 pb-4 sm:p-4 md:p-6 md:pb-6">
+          <main ref={mainRef} data-onboarding="main" className="flex-1 overflow-y-auto p-3 pb-28 sm:p-4 sm:pb-28 md:p-6 md:pb-24">
             <div className="mx-auto max-w-5xl">
               <Suspense fallback={<ModuleFallback />}>
                 {renderModule()}
@@ -335,6 +433,7 @@ export default function Index() {
             <TraceabilityPanel />
           </div>
         </div>
+        <FloatingWorkflowNav activeTab={activeTab} onNavigate={setActiveTab} />
         <MobileBottomNav activeTab={activeTab} onChange={setActiveTab} allTabs={tabs} />
         <OnboardingTour open={onboarding.open} onClose={onboarding.close} onNavigate={setActiveTab} />
         <InstallBanner enabled={!onboarding.open} />

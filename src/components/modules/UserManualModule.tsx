@@ -125,7 +125,7 @@ const manualSections: ManualSection[] = [
       "Smart recommendations appear where the app can infer a value from selected service, material, temperature, or source rules.",
       "Overrides are allowed and visibly tracked. Override use should be intentional and supported by project-specific reasoning.",
       "Calculate runs the downstream engines for wall thickness, pipe schedule, material selection, flange rating, bolting/gasket, valves, support span, PMS continuity, and design review checks.",
-      "Load Default Dataset fills a reference workflow for familiarization. Clear All Fields resets the current input form.",
+      "Load Sample Data fills a reference workflow for familiarization. Clear All Fields resets the current input form.",
     ],
     review: [
       "Service Type is a governing input. It affects corrosion allowance, material compatibility, valve trim/seat/body philosophy, gasket selection, schedule philosophy, and warnings.",
