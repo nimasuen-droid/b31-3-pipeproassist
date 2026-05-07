@@ -17,7 +17,7 @@ const host = typeof window !== "undefined" ? window.location.hostname : "";
 const protocol = typeof window !== "undefined" ? window.location.protocol : "";
 const isPreviewHost =
   host.includes("id-preview--") ||
-  host.includes("lovableproject.com") ||
+  host.includes("lovable") ||
   host === "localhost" ||
   host === "127.0.0.1";
 
@@ -25,9 +25,10 @@ const isPreviewHost =
 const isFileProtocol = protocol === "file:";
 
 export const PWA_DISABLED = isInIframe || isPreviewHost || isFileProtocol;
+const PWA_ENABLED = import.meta.env.VITE_ENABLE_PWA === "true";
 
 export async function registerPWA(): Promise<void> {
-  if (PWA_DISABLED) {
+  if (PWA_DISABLED || !PWA_ENABLED) {
     // Defensive cleanup: remove any previously registered SWs in preview/iframe contexts.
     if ("serviceWorker" in navigator) {
       try {
@@ -43,7 +44,8 @@ export async function registerPWA(): Promise<void> {
   if (!("serviceWorker" in navigator)) return;
 
   try {
-    const { registerSW } = await import("virtual:pwa-register");
+    const pwaRegisterModule = "virtual:" + "pwa-register";
+    const { registerSW } = await import(/* @vite-ignore */ pwaRegisterModule);
     registerSW({
       immediate: true,
       onRegisteredSW(_swUrl, registration) {

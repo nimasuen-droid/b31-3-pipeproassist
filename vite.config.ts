@@ -5,7 +5,10 @@ import { componentTagger } from "lovable-tagger";
 import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
+export default defineConfig(({ mode }) => {
+  const enablePwa = process.env.VITE_ENABLE_PWA === "true";
+
+  return {
   // Use relative base so the production build works under Electron's file:// protocol.
   // Web builds (served from /) also tolerate relative asset paths.
   base: "./",
@@ -19,7 +22,8 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     mode === "development" && componentTagger(),
-    VitePWA({
+    enablePwa &&
+      VitePWA({
       registerType: "autoUpdate",
       // Disable in dev to avoid stale-cache issues inside the Lovable preview iframe.
       devOptions: { enabled: false },
@@ -85,4 +89,5 @@ export default defineConfig(({ mode }) => ({
       },
     },
   },
-}));
+  };
+});
