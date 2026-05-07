@@ -1,0 +1,73 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules/
+.npm-cache/
+.tools/
+
+# Build output
+dist/
+dist-ssr/
+dist-electron/
+release/
+installer-release/
+electron-release/
+out/
+build/
+*-win32-x64/
+*-darwin-x64/
+*-linux-x64/
+win-unpacked/
+playwright-report/
+test-results/
+
+# Packaged desktop app artifacts
+app.asar
+B31.3-Assistant.exe
+ASME B31.3 Process Piping Design Assistant.exe
+Electron Framework
+B31.3-Assistant
+*.asar
+*.exe
+*.dmg
+*.AppImage
+*.deb
+*.rpm
+*.zip
+*.7z
+*.tar.gz
+*.nsis.7z
+*.blockmap
+*.nupkg
+*.pkg
+node-v*-win-x64.zip
+npm-*.tgz
+npm-latest.json
+
+# Local env
+.env
+.env.*
+!.env.example
+*.local
+
+# Alternative package manager binary lockfiles/caches
+bun.lock
+bun.lockb
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

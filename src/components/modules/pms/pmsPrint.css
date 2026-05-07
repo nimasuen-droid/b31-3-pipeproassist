@@ -1,0 +1,377 @@
+/* PIP-format PMS Print Stylesheet */
+
+/* ── Screen preview (inside dialog / modal) ── */
+.pms-print-root {
+  font-family: "Courier New", "Consolas", monospace;
+  font-size: 9pt;
+  color: #000;
+  background: #fff;
+  line-height: 1.35;
+}
+
+.pms-page {
+  width: 7.5in;
+  min-height: 10in;
+  padding: 0.5in;
+  margin: 0 auto 1rem;
+  border: 1px solid #ccc;
+  background: #fff;
+  position: relative;
+  page-break-after: always;
+  box-sizing: border-box;
+}
+
+/* ── Page Header ── */
+.pms-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.3in;
+  border-bottom: 2px solid #000;
+  padding-bottom: 4pt;
+}
+
+.pms-header-rev {
+  font-weight: bold;
+  font-size: 9pt;
+}
+
+.pms-header-spec,
+.pms-header-spec-small {
+  font-weight: bold;
+  font-size: 10pt;
+  text-align: right;
+}
+
+.pms-header-subtitle,
+.pms-header-subtitle-small {
+  font-size: 8pt;
+  font-style: italic;
+  text-align: right;
+}
+
+/* ── Design Basis Table ── */
+.pms-basis-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0.2in;
+  font-size: 8.5pt;
+}
+
+.pms-basis-table td {
+  padding: 2pt 4pt;
+  border: 1px solid #000;
+  vertical-align: top;
+}
+
+.pms-basis-label {
+  font-weight: bold;
+  width: 28%;
+  background: #f5f5f5;
+}
+
+.pms-basis-value {
+  width: 22%;
+}
+
+/* ── Material Tables ── */
+.pms-material-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 8pt;
+  margin-bottom: 0.15in;
+}
+
+.pms-material-table th {
+  background: #e8e8e8;
+  border: 1px solid #000;
+  padding: 3pt 4pt;
+  text-align: left;
+  font-weight: bold;
+  font-size: 7.5pt;
+  text-transform: uppercase;
+  letter-spacing: 0.3pt;
+}
+
+.pms-material-table td {
+  border: 1px solid #999;
+  padding: 2pt 4pt;
+  vertical-align: top;
+}
+
+.pms-col-item { width: 14%; }
+.pms-col-notes { width: 10%; }
+.pms-col-nps { width: 14%; }
+.pms-col-sch { width: 10%; }
+.pms-col-ends { width: 8%; }
+.pms-col-desc { width: 44%; }
+
+.pms-category-row td {
+  background: #f0f0f0;
+  border-top: 2px solid #000;
+  padding-top: 3pt;
+}
+
+.pms-indent {
+  padding-left: 12pt !important;
+}
+
+/* ── Branch Connection Table ── */
+.pms-branch-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 8pt;
+  margin-bottom: 0.15in;
+}
+
+.pms-branch-table th {
+  background: #e8e8e8;
+  border: 1px solid #000;
+  padding: 3pt 4pt;
+  text-align: left;
+  font-weight: bold;
+  font-size: 7.5pt;
+}
+
+.pms-branch-table td {
+  border: 1px solid #999;
+  padding: 2pt 4pt;
+}
+
+/* ── Branch Connection Matrix ── */
+.pms-matrix-wrapper {
+  overflow-x: auto;
+  margin-bottom: 6pt;
+}
+
+.pms-matrix-table {
+  border-collapse: collapse;
+  font-size: 7pt;
+  width: auto;
+}
+
+.pms-matrix-table th,
+.pms-matrix-table td {
+  border: 1px solid #000;
+  width: 18pt;
+  height: 16pt;
+  text-align: center;
+  padding: 1pt;
+  font-size: 7pt;
+}
+
+.pms-matrix-corner {
+  background: #e8e8e8;
+  width: 30pt;
+}
+
+.pms-matrix-header {
+  background: #e8e8e8;
+  font-weight: bold;
+  font-size: 6.5pt;
+}
+
+.pms-matrix-branch {
+  background: #e8e8e8;
+  font-weight: bold;
+  font-size: 6.5pt;
+  text-align: right;
+  padding-right: 3pt !important;
+  width: 30pt;
+}
+
+.pms-matrix-cell {
+  font-weight: bold;
+}
+
+.pms-cell-T { background: #e8f5e9; }
+.pms-cell-W { background: #fff3e0; }
+.pms-cell-S { background: #e3f2fd; }
+.pms-cell-R { background: #f1f8e9; }
+
+.pms-matrix-labels {
+  text-align: center;
+  font-size: 7pt;
+  font-weight: bold;
+  margin-top: 2pt;
+  margin-bottom: 6pt;
+}
+
+/* ── P-T Rating Block ── */
+.pms-pt-block {
+  margin: 0.1in 0 0.15in;
+  border: 1px solid #000;
+  padding: 4pt 6pt;
+}
+
+.pms-pt-info {
+  font-size: 7.5pt;
+  font-style: italic;
+  margin-bottom: 4pt;
+}
+
+.pms-pt-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 7pt;
+}
+
+.pms-pt-table th,
+.pms-pt-table td {
+  border: 1px solid #000;
+  padding: 2pt 3pt;
+  text-align: center;
+}
+
+.pms-pt-table th {
+  background: #e8e8e8;
+  font-weight: bold;
+}
+
+/* ── Not Applicable Row ── */
+.pms-na-row {
+  font-style: italic;
+  color: #666;
+  text-align: center;
+  padding: 4pt !important;
+}
+
+/* ── Reference Table ── */
+.pms-ref-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 7.5pt;
+  margin-bottom: 0.1in;
+}
+
+.pms-ref-table th {
+  background: #e8e8e8;
+  border: 1px solid #000;
+  padding: 3pt 4pt;
+  text-align: left;
+  font-weight: bold;
+  font-size: 7pt;
+}
+
+.pms-ref-table td {
+  border: 1px solid #999;
+  padding: 2pt 4pt;
+}
+
+/* ── Note Reference ── */
+.pms-note-ref {
+  font-size: 6.5pt;
+  color: #666;
+  font-style: italic;
+}
+
+.pms-matrix-xlabel {
+  letter-spacing: 1pt;
+}
+
+/* ── Section Titles ── */
+.pms-section-title {
+  font-weight: bold;
+  font-size: 9pt;
+  margin-top: 0.1in;
+  margin-bottom: 4pt;
+  text-transform: uppercase;
+}
+
+.pms-section-subtitle {
+  font-size: 8pt;
+  font-style: italic;
+  margin-bottom: 8pt;
+}
+
+/* ── Legend ── */
+.pms-legend {
+  font-size: 8pt;
+  margin: 0.1in 0;
+  padding: 4pt 8pt;
+  border: 1px solid #ccc;
+  background: #fafafa;
+}
+
+.pms-legend div {
+  margin-bottom: 1pt;
+}
+
+/* ── Notes ── */
+.pms-notes-section {
+  margin-top: 0.15in;
+}
+
+.pms-note-row {
+  display: flex;
+  gap: 8pt;
+  margin-bottom: 3pt;
+  font-size: 7.5pt;
+}
+
+.pms-note-id {
+  font-weight: bold;
+  min-width: 20pt;
+  flex-shrink: 0;
+}
+
+.pms-note-text {
+  flex: 1;
+}
+
+/* ── Page Footer ── */
+.pms-page-footer {
+  position: absolute;
+  bottom: 0.3in;
+  left: 0.5in;
+  right: 0.5in;
+  display: flex;
+  gap: 8pt;
+  justify-content: space-between;
+  font-size: 7.5pt;
+  font-style: italic;
+  border-top: 1px solid #000;
+  padding-top: 3pt;
+}
+
+.pms-page-footer span:first-child {
+  flex: 1;
+  line-height: 1.2;
+}
+
+/* ── Print Media ── */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .pms-print-root,
+  .pms-print-root * {
+    visibility: visible;
+  }
+
+  .pms-print-root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  .pms-page {
+    width: 100%;
+    margin: 0;
+    border: none;
+    padding: 0.4in 0.6in;
+    min-height: auto;
+    page-break-after: always;
+  }
+
+  .pms-page:last-child {
+    page-break-after: avoid;
+  }
+
+  @page {
+    size: letter;
+    margin: 0.3in;
+  }
+}

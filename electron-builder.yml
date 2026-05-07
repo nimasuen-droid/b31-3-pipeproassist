@@ -1,0 +1,51 @@
+appId: com.nosaimasuen.b313assistant
+productName: PipePro B31.3 Design Assistant
+copyright: Copyright © 2026 Nosa Imasuen
+
+directories:
+  output: installer-release
+  buildResources: build-resources
+
+files:
+  - dist/**/*
+  - electron/**/*
+  - package.json
+
+asar: true
+
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  # Embed the payload directly into the installer .exe (no separate .7z)
+
+  icon: build-resources/icon.ico
+  artifactName: "PipePro-B31.3-Design-Assistant-Setup-${version}.${ext}"
+  # Code signing configuration.
+  # electron-builder reads CSC_LINK (path or base64 of .pfx) and CSC_KEY_PASSWORD from env.
+  # Both the app .exe and the NSIS installer .exe will be signed.
+  signtoolOptions:
+    publisherName: Nosa Imasuen
+    signingHashAlgorithms:
+      - sha256
+    # Use a trusted RFC 3161 timestamp server so signatures remain valid
+    # after the certificate itself expires.
+    rfc3161TimeStampServer: http://timestamp.digicert.com
+    timeStampServer: http://timestamp.digicert.com
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: PipePro B31.3
+  menuCategory: Engineering
+  installerIcon: build-resources/icon.ico
+  uninstallerIcon: build-resources/icon.ico
+  uninstallDisplayName: PipePro B31.3 Design Assistant ${version}
+  runAfterFinish: true
+  deleteAppDataOnUninstall: false
+  # Single self-contained installer (no separate .7z payload, no web installer)
+  differentialPackage: false
+  packElevateHelper: true

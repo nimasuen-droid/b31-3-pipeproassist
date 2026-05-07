@@ -1,0 +1,55 @@
+name: Build Windows Installer
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    name: Build NSIS Installer (windows-latest)
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build web app (Vite -> dist/)
+        run: npm run build
+
+      - name: Build & package Windows NSIS installer
+        env:
+          # ---- Optional code-signing (leave unset to skip signing) ----
+          # To enable signing, add these as repository secrets:
+          #   CSC_LINK_B64       : base64-encoded contents of your .pfx file
+          #   CSC_KEY_PASSWORD   : password for the .pfx
+          # electron-builder accepts CSC_LINK as a base64 string directly.
+          CSC_LINK: ${{ secrets.CSC_LINK_B64 }}
+          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+          # Disable auto-publish; we only want a build artifact.
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx electron-builder --win nsis --x64 --config electron-builder.yml --publish never
+
+      - name: List build output
+        shell: pwsh
+        run: |
+          Write-Host "=== installer-release contents ==="
+          Get-ChildItem -Path installer-release -File | Format-Table Name, @{Name='SizeMB';Expression={[math]::Round($_.Length / 1MB, 2)}}
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: B31.3-Assistant-Setup-Windows-x64
+          path: installer-release/B31.3-Assistant-Setup-*.exe
+          if-no-files-found: error
+          retention-days: 30
