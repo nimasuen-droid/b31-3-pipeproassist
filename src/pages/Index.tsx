@@ -278,7 +278,7 @@ function FloatingWorkflowNav({
         {previousTab && (
           <button
             onClick={() => go(previousTab.id)}
-            className="pointer-events-auto inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-card px-4 py-2.5 text-sm font-semibold text-foreground shadow-lg shadow-black/35 hover:bg-secondary"
+            className="pointer-events-auto inline-flex min-h-11 items-center gap-2 rounded-full border border-amber-400/50 bg-amber-950 px-4 py-2.5 text-sm font-semibold text-amber-100 shadow-lg shadow-black/35 ring-1 ring-amber-300/20 hover:bg-amber-900"
           >
             <ChevronLeft className="h-4 w-4" />
             Back: {previousTab.label}
