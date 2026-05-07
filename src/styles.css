@@ -142,12 +142,16 @@
 }
 
 @layer base {
-  * {
-    border-color: var(--color-border);
-  }
-
+  * { border-color: var(--color-border); }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-body);
+    background-image:
+      linear-gradient(oklch(0.24 0.02 240) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.24 0.02 240) 1px, transparent 1px);
+    background-size: 48px 48px;
   }
+  .mono { font-family: var(--font-display); font-feature-settings: "ss01","cv11"; }
+  h1,h2,h3,h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
 }
