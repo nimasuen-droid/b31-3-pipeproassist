@@ -433,7 +433,7 @@ export default function Index() {
             </button>
           </nav>
 
-          <main ref={mainRef} data-onboarding="main" className="flex-1 overflow-y-auto p-3 pb-28 sm:p-4 sm:pb-28 md:p-6 md:pb-24">
+          <main ref={mainRef} data-onboarding="main" className="flex-1 overflow-y-auto p-3 pb-56 sm:p-4 sm:pb-56 md:p-6 md:pb-40 lg:pb-36">
             <div className="mx-auto max-w-5xl">
               <Suspense fallback={<ModuleFallback />}>
                 {renderModule()}
