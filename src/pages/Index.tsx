@@ -264,6 +264,7 @@ function FloatingWorkflowNav({
     .map((id) => tabs.find((tab) => tab.id === id))
     .filter(Boolean) as typeof tabs;
   const activeIndex = workflowTabs.findIndex((tab) => tab.id === activeTab);
+  const previousTab = activeIndex > 0 ? workflowTabs[activeIndex - 1] : undefined;
   const nextTab = activeIndex >= 0 ? workflowTabs[activeIndex + 1] : workflowTabs[0];
 
   const go = (id: string) => {
@@ -273,15 +274,26 @@ function FloatingWorkflowNav({
 
   return (
     <div className="fixed bottom-[calc(env(safe-area-inset-bottom)+84px)] left-3 right-3 z-50 flex items-end justify-between gap-2 pointer-events-none md:left-auto md:right-6 md:bottom-6 md:flex-col">
-      {calculated && nextTab && (
-        <button
-          onClick={() => go(nextTab.id)}
-          className="pointer-events-auto inline-flex min-h-11 items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-black/35 ring-1 ring-primary/30 hover:brightness-110"
-        >
-          Next: {nextTab.label}
-          <ChevronRight className="h-4 w-4" />
-        </button>
-      )}
+      <div className="flex min-w-0 flex-wrap gap-2 pointer-events-none md:flex-col md:items-end">
+        {previousTab && (
+          <button
+            onClick={() => go(previousTab.id)}
+            className="pointer-events-auto inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-card px-4 py-2.5 text-sm font-semibold text-foreground shadow-lg shadow-black/35 hover:bg-secondary"
+          >
+            <ChevronLeft className="h-4 w-4" />
+            Back: {previousTab.label}
+          </button>
+        )}
+        {calculated && nextTab && (
+          <button
+            onClick={() => go(nextTab.id)}
+            className="pointer-events-auto inline-flex min-h-11 items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-black/35 ring-1 ring-primary/30 hover:brightness-110"
+          >
+            Next: {nextTab.label}
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        )}
+      </div>
 
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
