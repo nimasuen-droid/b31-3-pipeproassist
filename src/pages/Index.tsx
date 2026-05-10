@@ -273,8 +273,8 @@ function FloatingWorkflowNav({
   };
 
   return (
-    <div className="sticky bottom-3 z-50 mt-4 flex items-end justify-between gap-2 pointer-events-none md:bottom-6 md:flex-col md:items-end">
-      <div className="flex min-w-0 max-w-[calc(100vw-6rem)] flex-wrap gap-2 pointer-events-none md:max-w-full md:flex-col md:items-end">
+    <div className="sticky bottom-4 z-50 mt-6 flex items-end justify-between gap-3 pointer-events-none md:bottom-6 md:mt-8 md:flex-col md:items-end">
+      <div className="flex min-w-0 max-w-[calc(100vw-6rem)] flex-wrap gap-3 pointer-events-none md:max-w-full md:flex-col md:items-end">
         {previousTab && (
           <button
             onClick={() => go(previousTab.id)}
@@ -434,8 +434,8 @@ export default function Index() {
           </nav>
 
           <div className="relative flex min-w-0 flex-1">
-            <main ref={mainRef} data-onboarding="main" className="flex-1 overflow-y-auto p-3 pb-6 sm:p-4 sm:pb-8 md:p-6 md:pb-8">
-              <div className="mx-auto max-w-5xl">
+            <main ref={mainRef} data-onboarding="main" className="flex-1 overflow-y-auto p-4 pb-10 sm:p-5 sm:pb-12 md:p-8 md:pb-12">
+              <div className="mx-auto max-w-5xl space-y-6">
                 <Suspense fallback={<ModuleFallback />}>
                   {renderModule()}
                 </Suspense>

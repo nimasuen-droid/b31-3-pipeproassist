@@ -46,7 +46,7 @@ export function MobileBottomNav({ activeTab, onChange, allTabs }: Props) {
   };
 
   return (
-    <nav data-onboarding="nav" className="z-40 flex shrink-0 items-stretch gap-1 border-t border-border bg-card px-1.5 pt-1 shadow-2xl shadow-black/30 pb-[calc(env(safe-area-inset-bottom)+0.25rem)] md:hidden">
+    <nav data-onboarding="nav" className="z-40 flex shrink-0 items-stretch gap-1.5 border-t border-border bg-card px-2 pt-1.5 shadow-2xl shadow-black/30 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] md:hidden">
       {PRIMARY.map((tab) => renderBtn(tab, activeTab === tab.id, () => onChange(tab.id)))}
       <Sheet open={moreOpen} onOpenChange={setMoreOpen}>
         <SheetTrigger asChild>
