@@ -16,6 +16,7 @@ import { LearningMoment } from "@/components/LearningMoment";
 import { PMSPrintView } from "./pms/PMSPrintView";
 import { exportPMSToWord } from "./pms/pmsWordExport";
 import "./pms/pmsPrint.css";
+import { escapeHtml } from "@/lib/utils";
 
 export function PipingMaterialSpecModule() {
   const { inputs, recommendations, activePipeMaterial, overrides, calculated } = useDesignInputs();
