@@ -17,7 +17,6 @@ const MODULES = [
   { id: "spec-library", label: "Spec Library" },
   { id: "source-library", label: "Source Library" },
   { id: "manual", label: "User Manual" },
-  { id: "pricing", label: "Request Access" },
   { id: "about", label: "About & Release" },
   { id: "eula", label: "Terms (EULA)" },
   { id: "privacy", label: "Privacy" },

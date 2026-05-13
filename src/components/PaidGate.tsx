@@ -9,14 +9,13 @@ interface PaidGateProps {
   children: React.ReactNode;
   /** Optional handler to navigate the user back to Inputs. */
   onGoToInputs?: () => void;
-  /** Optional handler to navigate to the pricing/upgrade page. */
+  /** Optional handler reserved for future pricing/access pages. */
   onGoToPricing?: () => void;
 }
 
 /**
- * Wraps a paid-gated module. If the current entitlement state allows access,
- * children render normally. Otherwise an upgrade / restricted-access prompt
- * is shown in place of the module content.
+ * Wraps a module that may be entitlement-gated in a future paid rollout.
+ * In the free launch build, every app module is included in FREE_MODULE_IDS.
  */
 export function PaidGate({ moduleId, moduleName, children, onGoToInputs, onGoToPricing }: PaidGateProps) {
   const { canAccessModule, blockReason, demoRunsRemaining, demoRunsLimit, isPaid } = useEntitlements();
@@ -54,9 +53,9 @@ export function PaidGate({ moduleId, moduleName, children, onGoToInputs, onGoToP
           <div className="flex-1 space-y-3">
             <div>
               <h2 className="text-lg font-semibold text-foreground">
-                {moduleName} - Licensed Workspace
+                {moduleName} - Free Launch Access
               </h2>
-              <p className="text-xs text-muted-foreground">Full custom-project use is reserved for licensed workspaces while billing setup is pending.</p>
+              <p className="text-xs text-muted-foreground">This module is available in the free launch build.</p>
             </div>
 
             <div className="whitespace-pre-line text-sm text-foreground/90 leading-relaxed">
@@ -72,7 +71,7 @@ export function PaidGate({ moduleId, moduleName, children, onGoToInputs, onGoToP
             {reason === "demo-exhausted" && (
               <div className="flex items-center gap-2 rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs text-destructive">
                 <AlertTriangle className="h-4 w-4 shrink-0" />
-                <span>The reference-workflow run limit has been reached. Request licensed workspace access to continue.</span>
+                <span>The reference-workflow run limit has been reached. Free launch access should bypass this message; refresh the app and try again.</span>
               </div>
             )}
             {reason === "needs-sample" && Number.isFinite(demoRunsLimit) && (
@@ -98,7 +97,7 @@ export function PaidGate({ moduleId, moduleName, children, onGoToInputs, onGoToP
                 className="inline-flex min-h-10 items-center gap-1.5 rounded-md bg-gradient-to-r from-primary to-primary/80 px-3 py-1.5 text-xs font-medium text-primary-foreground hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 <Crown className="h-3.5 w-3.5" />
-                Request Pro Access
+                Access Info
               </button>
             </div>
           </div>

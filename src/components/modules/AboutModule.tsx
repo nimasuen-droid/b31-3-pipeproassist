@@ -34,7 +34,7 @@ interface AboutModuleProps {
 export function AboutModule({ onNavigate }: AboutModuleProps = {}) {
   const online = useOnlineStatus();
   const eula = getEulaAcceptance();
-  const { tier, isPaid, devPaidOverride, setDevPaidOverride, demoRunsUsed, demoRunsLimit, resetDemoRuns, sampleDataMode, sampleDataModified } = useEntitlements();
+  const { devPaidOverride, setDevPaidOverride, sampleDataMode, sampleDataModified } = useEntitlements();
   const showDevAccessControls = appEnv.allowDevEntitlementOverride;
 
   return (
@@ -50,13 +50,12 @@ export function AboutModule({ onNavigate }: AboutModuleProps = {}) {
 
       <section className="eng-card">
         <div className="eng-label mb-2 flex items-center gap-2">
-          <Sparkles className="h-3.5 w-3.5 text-primary" /> Workspace Access
+          <Sparkles className="h-3.5 w-3.5 text-primary" /> Free Launch Access
         </div>
         <Row icon={Sparkles} label="Workspace" value={
-          <span className={isPaid ? "text-green-400" : "text-amber-300"}>{isPaid ? "LICENSED" : "REFERENCE"}{showDevAccessControls && devPaidOverride ? " (dev override)" : ""}</span>
+          <span className="text-green-400">FREE LAUNCH{showDevAccessControls && devPaidOverride ? " (dev override)" : ""}</span>
         } />
         <Row icon={Shield} label="Reference dataset" value={sampleDataMode ? (sampleDataModified ? "Edited / custom workspace" : "Active") : "Not loaded"} />
-        <Row icon={Database} label="Reference workflow runs" value={Number.isFinite(demoRunsLimit) ? `${demoRunsUsed} / ${demoRunsLimit}` : `${demoRunsUsed} (unlimited)`} />
         <div className="flex flex-wrap gap-2 pt-3">
           {showDevAccessControls && (
             <button
@@ -66,15 +65,9 @@ export function AboutModule({ onNavigate }: AboutModuleProps = {}) {
               {devPaidOverride ? "Disable" : "Enable"} dev paid override
             </button>
           )}
-          <button
-            onClick={resetDemoRuns}
-            className="min-h-10 text-xs px-3 py-1.5 rounded-md border border-border hover:bg-secondary/50"
-          >
-            Reset reference runs
-          </button>
         </div>
         <p className="text-[10px] text-muted-foreground mt-2">
-          Licensed workspace access is granted from server-backed roles. Default engineering datasets remain available for reference workflows and training.
+          All engineering modules are available in this launch build. Payment and licensed-workspace controls can be introduced later without changing the engineering calculations.
           {showDevAccessControls ? " Dev override is enabled for this development build only." : ""}
         </p>
       </section>
@@ -129,7 +122,7 @@ export function AboutModule({ onNavigate }: AboutModuleProps = {}) {
           <li>Signed engineering dataset governance and source-version change logs.</li>
           <li>External benchmark cases for B31.3, B36.10M, B36.19M, B16.5, bolting/gasket, fittings, valves, PMS, and reports.</li>
           <li>Production monitoring, error tracking, incident triage, and release rollback procedure.</li>
-          <li>Security review, secret-rotation confirmation, cloud/RLS verification, and entitlement verification before commercial rollout.</li>
+          <li>Security review, secret-rotation confirmation, cloud/RLS verification, and future entitlement verification before commercial rollout.</li>
         </ul>
         <p className="mt-2 text-[10px] text-muted-foreground">
           These controls support release quality. They do not convert app outputs into certified engineering deliverables.

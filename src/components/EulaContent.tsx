@@ -61,11 +61,12 @@ export function EulaContent() {
         for backing up authoritative engineering data and resolving sync conflicts.
       </P>
 
-      <H n={4}>Paid Access</H>
+      <H n={4}>Free Launch Access</H>
       <P>
-        In-app payment checkout is not active in this build. Some modules may remain restricted behind
-        server-backed entitlements while payment processing is prepared for a later release. The Software
-        does not collect card, bank, or payment-method details in this version.
+        In-app payment checkout is not active in this build, and all engineering modules are available
+        without payment during the free launch period. The Software does not collect card, bank, or
+        payment-method details in this version. Payment or licensed-workspace controls may be introduced
+        in a later release with updated terms.
       </P>
 
       <H n={5}>No Warranties</H>

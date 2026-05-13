@@ -305,16 +305,16 @@ const manualSections: ManualSection[] = [
   {
     id: "auth",
     icon: Lock,
-    title: "Account, Cloud Sync & Licensed Workspace",
-    summary: "Understand sign-in, entitlement state, access messaging, and future payment separation.",
+    title: "Account, Cloud Sync & Free Launch Access",
+    summary: "Understand sign-in, free launch access, and future payment separation.",
     content: [
       "The app can run locally with offline-first storage. Signing in enables account-linked features such as cloud sync when the backend is configured.",
-      "Licensed Workspace messaging describes entitlement-backed access without presenting the app as restricted evaluation software.",
+      "All engineering modules are available in this free launch build.",
       "Payment checkout is not active in this build. Production payment processing can be configured later without changing engineering calculations.",
-      "Default Engineering Dataset workflows remain available for reference and training; custom/licensed workspace behavior is used when users import or edit their own data.",
+      "Default Engineering Dataset workflows remain available for reference and training; custom project behavior is used when users import or edit their own data.",
     ],
     review: [
-      "Cloud sync and entitlement behavior should be verified in the live production environment before commercial release.",
+      "Cloud sync and any future entitlement behavior should be verified in the live production environment before commercial release.",
       "Do not store secrets or licensed standard documents in client-side code.",
     ],
   },
@@ -369,7 +369,7 @@ const manualSections: ManualSection[] = [
 const quickStartSteps = [
   {
     title: "Confirm the workflow basis",
-    body: "Start on Home. Confirm the active project, dataset state, warning count, and whether you are using default, custom, or licensed workspace data.",
+    body: "Start on Home. Confirm the active project, dataset state, warning count, and whether you are using default or custom project data.",
   },
   {
     title: "Review source data",

@@ -11,21 +11,30 @@ export const FREE_MODULE_IDS = new Set<string>([
   "home",
   "projects",
   "inputs",
+  "material",
+  "schedule",
+  "flanges",
+  "bolting",
+  "valves",
+  "support",
+  "checks",
+  "reports",
+  "pms",
+  "spec-library",
   "thickness",       // Wall Thickness — explicitly free per spec
   "source-library",
   "manual",
   "about",
   "eula",
-  "pricing",         // Upgrade page is always accessible
+  "privacy",
+  "refund",
 ]);
 
 /** Demo run cap for free users. (Infinity = unlimited) */
 export const DEMO_RUN_LIMIT = Infinity;
 
 export const RESTRICTED_MESSAGE =
-  "This module is available in a licensed engineering workspace.\n\n" +
-  "To review the workflow with reference cases, go to Inputs and load the Default Engineering Dataset.\n\n" +
-  "Custom imported or edited engineering datasets remain available in the free workspace for Wall Thickness calculations.";
+  "All engineering modules are available in this free launch build. Payment and licensed-workspace controls are reserved for a later release.";
 
 type Tier = "free" | "paid";
 
@@ -36,7 +45,7 @@ interface EntitlementsContextType {
   sampleDataMode: boolean;
   /** True when sample-loaded inputs have since been edited. */
   sampleDataModified: boolean;
-  /** Free-tier demo runs consumed (calculate / generate presses on gated modules). */
+  /** Demo runs consumed by older gated workflows. Launch-free builds do not restrict usage. */
   demoRunsUsed: number;
   demoRunsLimit: number;
   demoRunsRemaining: number;

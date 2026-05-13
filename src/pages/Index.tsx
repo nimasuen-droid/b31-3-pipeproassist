@@ -4,7 +4,7 @@ import {
   Home, FileInput, Layers, Calculator, Ruler, CircleDot, Wrench,
   Bolt, Gauge, ClipboardCheck, FileOutput, BookOpen,
   ChevronLeft, ChevronRight, FolderOpen, FileText, Library, HelpCircle,
-  Disc, Sparkles, Info, Scale, Lock, Crown, Shield, Receipt,
+  Disc, Sparkles, Info, Scale, Lock, Shield, Receipt,
   Menu,
 } from "lucide-react";
 import { OnboardingTour, useOnboarding } from "@/components/OnboardingTour";
@@ -13,7 +13,6 @@ import { OfflineBanner } from "@/components/OfflineBanner";
 import { EulaGate } from "@/components/EulaGate";
 import { InstallBanner } from "@/components/InstallBanner";
 import { InstallButton } from "@/components/InstallButton";
-import { PricingPage } from "@/components/PricingPage";
 import { DATASET_VERSION, APP_VERSION } from "@/lib/appVersion";
 import { PRODUCT_NAME, PRODUCT_SHORT_NAME } from "@/lib/brand";
 import { Badge } from "@/components/ui/badge";
@@ -97,7 +96,6 @@ const tabs = [
   { id: "spec-library", label: "Spec Library", icon: Library },
   { id: "source-library", label: "Source Library", icon: BookOpen },
   { id: "manual", label: "User Manual", icon: HelpCircle },
-  { id: "pricing", label: "Request Access", icon: Crown },
   { id: "about", label: "About & Release", icon: Info },
   { id: "eula", label: "Terms (EULA)", icon: Scale },
   { id: "privacy", label: "Privacy", icon: Shield },
@@ -364,6 +362,12 @@ export default function Index() {
     mainRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   }, [activeTab]);
 
+  useEffect(() => {
+    if (!tabs.some((tab) => tab.id === activeTab)) {
+      setActiveTab("home");
+    }
+  }, [activeTab, setActiveTab]);
+
   const tabLabel = (id: string) => tabs.find(t => t.id === id)?.label ?? id;
   const gate = (id: string, node: React.ReactNode) =>
     FREE_MODULE_IDS.has(id)
@@ -372,7 +376,7 @@ export default function Index() {
           moduleId={id}
           moduleName={tabLabel(id)}
           onGoToInputs={() => setActiveTab("inputs")}
-          onGoToPricing={() => setActiveTab("pricing")}
+          onGoToPricing={undefined}
         >{node}</PaidGate>;
 
   const renderModule = () => {
@@ -393,7 +397,6 @@ export default function Index() {
       case "pms": return gate("pms", <PipingMaterialSpecModule />);
       case "spec-library": return gate("spec-library", <SpecLibraryModule />);
       case "manual": return <UserManualModule />;
-      case "pricing": return <PricingPage />;
       case "about": return <AboutModule onNavigate={setActiveTab} />;
       case "eula": return <EulaModule />;
       case "privacy": return <PrivacyPolicyModule />;
