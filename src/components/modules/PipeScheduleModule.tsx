@@ -104,8 +104,8 @@ export function PipeScheduleModule() {
       </style></head><body>
       <h1>ASME B36.10M — Complete Schedule Summary</h1>
       <div class="meta">
-        Material: ${activePipeMaterial} | P = ${inputs.designPressure} ${pUnit} | T = ${inputs.designTemperature} ${inputs.unitSystem === "SI" ? "°C" : "°F"} |
-        S = ${recommendations.allowableStress?.value || "—"} ${sUnit} | CA = ${getCalcParams().ca} ${lUnit} | Mill Tol = ${getCalcParams().mt}%
+        Material: ${escapeHtml(activePipeMaterial)} | P = ${escapeHtml(inputs.designPressure)} ${escapeHtml(pUnit)} | T = ${escapeHtml(inputs.designTemperature)} ${inputs.unitSystem === "SI" ? "°C" : "°F"} |
+        S = ${escapeHtml(recommendations.allowableStress?.value ?? "—")} ${escapeHtml(sUnit)} | CA = ${escapeHtml(getCalcParams().ca)} ${escapeHtml(lUnit)} | Mill Tol = ${escapeHtml(getCalcParams().mt)}%
       </div>
       ${el.innerHTML}
       <p style="font-size:9px;color:#999;margin-top:16px">Engineering support tool – final design subject to approval. Generated ${new Date().toISOString().slice(0,10)}</p>
