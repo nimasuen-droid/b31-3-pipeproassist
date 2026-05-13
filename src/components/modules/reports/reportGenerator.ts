@@ -4,6 +4,7 @@
  */
 
 import type { DesignInputs } from "@/stores/designInputsStore";
+import { escapeHtml } from "@/lib/utils";
 import type { Recommendations } from "@/components/modules/designInputs/recommendationEngine";
 import { buildValveClassTable } from "@/components/modules/designInputs/valveClassTableEngine";
 import {
