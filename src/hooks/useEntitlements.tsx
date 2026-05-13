@@ -111,11 +111,10 @@ export function EntitlementsProvider({ children }: { children: React.ReactNode }
   const setDevPaidOverride = useCallback((enabled: boolean) => {
     setStoredDevPaidOverride(appEnv.allowDevEntitlementOverride ? enabled : false);
   }, [setStoredDevPaidOverride]);
-  const isPaid = resolvePaidEntitlement({
-    hasPaidRole,
-    devPaidOverride: storedDevPaidOverride,
-    allowDevOverride: appEnv.allowDevEntitlementOverride,
-  });
+  // Payments suspended — app launching free. All users are treated as paid
+  // so every module is unlocked. Re-enable the resolver below when billing returns.
+  void resolvePaidEntitlement; void hasPaidRole; void appEnv; void storedDevPaidOverride;
+  const isPaid = true;
   const tier: Tier = isPaid ? "paid" : "free";
 
   const sampleDataMode = sampleHash !== "";
