@@ -16,6 +16,7 @@ import { LearningMoment } from "@/components/LearningMoment";
 import { PMSPrintView } from "./pms/PMSPrintView";
 import { exportPMSToWord } from "./pms/pmsWordExport";
 import "./pms/pmsPrint.css";
+import { escapeHtml } from "@/lib/utils";
 
 export function PipingMaterialSpecModule() {
   const { inputs, recommendations, activePipeMaterial, overrides, calculated } = useDesignInputs();
@@ -39,7 +40,7 @@ export function PipingMaterialSpecModule() {
     let cssText = "";
     styles.forEach(s => { cssText += s.innerHTML; });
     printWindow.document.write(`<!DOCTYPE html>
-<html><head><title>${pms?.designBasis.specNumber || "PMS"}</title>
+<html><head><title>${escapeHtml(pms?.designBasis.specNumber || "PMS")}</title>
 <style>${cssText}
 body { margin: 0; padding: 0; }
 .pms-print-root { position: static; }

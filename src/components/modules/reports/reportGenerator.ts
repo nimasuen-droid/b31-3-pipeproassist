@@ -4,6 +4,7 @@
  */
 
 import type { DesignInputs } from "@/stores/designInputsStore";
+import { escapeHtml } from "@/lib/utils";
 import type { Recommendations } from "@/components/modules/designInputs/recommendationEngine";
 import { buildValveClassTable } from "@/components/modules/designInputs/valveClassTableEngine";
 import {
@@ -485,12 +486,12 @@ export function printReport(content: string, title: string): void {
   const printWindow = window.open("", "_blank");
   if (!printWindow) return;
   printWindow.document.write(`
-    <html><head><title>${title}</title>
+    <html><head><title>${escapeHtml(title)}</title>
     <style>
       body { font-family: 'Courier New', monospace; font-size: 11px; white-space: pre; padding: 20px; }
       @media print { body { margin: 0; } }
     </style>
-    </head><body>${content}</body></html>
+    </head><body>${escapeHtml(content)}</body></html>
   `);
   printWindow.document.close();
   printWindow.print();
