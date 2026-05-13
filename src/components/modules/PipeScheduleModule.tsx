@@ -6,6 +6,7 @@ import { LearningMoment } from "../LearningMoment";
 import { AlertTriangle, CheckCircle2, Table2, Download, Printer, LayoutGrid, Star, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { pressureUnit, stressUnit, lengthUnit, MM_TO_IN } from "@/lib/unitConversion";
+import { escapeHtml } from "@/lib/utils";
 
 // EPC-standard NPS sizes — excludes 2½″ and 3½″ (non-preferred, procurement issues)
 const ALL_NPS = ["1/4","1/2","3/4","1","1-1/4","1-1/2","2","3","4","6","8","10","12","14","16","18","20","24"];
