@@ -97,7 +97,7 @@ const tabs = [
   { id: "spec-library", label: "Spec Library", icon: Library },
   { id: "source-library", label: "Source Library", icon: BookOpen },
   { id: "manual", label: "User Manual", icon: HelpCircle },
-  { id: "pricing", label: "Request Access", icon: Crown },
+  // Pricing/Request Access hidden — app launching free. Re-enable when billing returns.
   { id: "about", label: "About & Release", icon: Info },
   { id: "eula", label: "Terms (EULA)", icon: Scale },
   { id: "privacy", label: "Privacy", icon: Shield },
