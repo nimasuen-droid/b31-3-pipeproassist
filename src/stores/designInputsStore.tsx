@@ -7,6 +7,7 @@ export interface DesignInputs {
   lineNumber: string;
   serviceDescription: string;
   serviceType: string;
+  specialService: string;
   fluidPhase: string;
   pipingCategory: string;
   designPressure: string;
@@ -43,7 +44,7 @@ export interface DesignInputs {
 }
 
 export const defaultInputs: DesignInputs = {
-  projectName: "", lineNumber: "", serviceDescription: "", serviceType: "General Hydrocarbon",
+  projectName: "", lineNumber: "", serviceDescription: "", serviceType: "General Hydrocarbon", specialService: "Process",
   fluidPhase: "Liquid",
   pipingCategory: "Normal Fluid Service", designPressure: "", designTemperature: "",
   operatingPressure: "", operatingTemperature: "", testPressure: "", testMedium: "Water",
@@ -92,7 +93,7 @@ const defaultOverrides: Record<OverrideKeys, boolean> = {
 export function DesignInputsProvider({ children }: { children: React.ReactNode }) {
   // Persist working session locally so a refresh / reopen restores all inputs.
   // Bump the version when DesignInputs shape changes incompatibly.
-  const [inputs, setInputs] = useLocalStorage<DesignInputs>("session:inputs", defaultInputs, 2);
+  const [inputs, setInputs] = useLocalStorage<DesignInputs>("session:inputs", defaultInputs, 3);
   const [overrides, setOverrides] = useLocalStorage<Record<OverrideKeys, boolean>>(
     "session:overrides",
     { ...defaultOverrides },

@@ -155,7 +155,8 @@ export async function exportPMSToWord(pms: PipingMaterialSpec) {
   const basisPairs: [string, string][] = [
     ["SPEC NUMBER", db.specNumber], ["DESIGN CODE", db.designCode],
     ["SERVICE", db.serviceType], ["MATERIAL", db.materialGroup],
-    ["RATING CLASS", `${db.flangeRating}, ${pms.ptRatingBlock?.standard || "ASME B16.5"}`], ["FLUID PHASE", db.fluidPhase],
+    ["SPECIAL SERVICE", db.specialService], ["FLUID PHASE", db.fluidPhase],
+    ["RATING CLASS", `${db.flangeRating}, ${pms.ptRatingBlock?.standard || "ASME B16.5"}`], ["REVISION", db.revision],
     ["DESIGN PRESSURE", db.designPressure], ["DESIGN TEMPERATURE", db.designTemperature],
     ["TEST PRESSURE", db.testPressure], ["TEST MEDIUM", db.testMedium],
     ["CORROSION ALLOWANCE", db.corrosionAllowance], ["STRESS RELIEF", `Per ${db.designCode}`],

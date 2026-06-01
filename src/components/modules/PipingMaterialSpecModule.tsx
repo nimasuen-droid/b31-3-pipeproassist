@@ -193,6 +193,7 @@ body { margin: 0; padding: 0; }
                   "Date": pms.designBasis.date,
                   "Design Code": pms.designBasis.designCode,
                   "Service Type": pms.designBasis.serviceType,
+                  "Special Service": pms.designBasis.specialService,
                   "Fluid Phase": pms.designBasis.fluidPhase,
                   "Design Pressure": pms.designBasis.designPressure,
                   "Design Temperature": pms.designBasis.designTemperature,

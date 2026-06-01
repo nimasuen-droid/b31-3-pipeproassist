@@ -237,6 +237,19 @@ const SERVICE_TYPE_OPTIONS = [
   "Chloride / Caustic",
 ];
 
+const SPECIAL_SERVICE_OPTIONS = [
+  "Process",
+  "Drain",
+  "Vent",
+  "Sample Point",
+  "Utility Connection",
+  "Chemical Injection",
+  "Instrument Connection",
+  "Relief / Flare",
+  "Temporary Flushing",
+  "Bypass",
+];
+
 function InputField({ label, value, onChange, type = "text", placeholder, unit }: {
   label: string; value: string; onChange: (v: string) => void;
   type?: string; placeholder?: string; unit?: string;
@@ -450,14 +463,17 @@ export function DesignInputsModule() {
         <div className="eng-label mb-3">Service Classification</div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
           <SelectField label="Service Type" value={inputs.serviceType} onChange={update("serviceType")} options={SERVICE_TYPE_OPTIONS} />
+          <SelectField label="Special Service / Line Function" value={inputs.specialService} onChange={update("specialService")} options={SPECIAL_SERVICE_OPTIONS} />
           <SelectField label="Fluid Phase" value={inputs.fluidPhase} onChange={update("fluidPhase")} options={["Liquid", "Gas", "Two-Phase", "Steam", "Slurry"]} />
           <SelectField label="Piping Category" value={inputs.pipingCategory} onChange={update("pipingCategory")} options={["Normal Fluid Service", "Category D Fluid Service", "Category M Fluid Service", "High Pressure Piping", "Elevated Temperature"]} />
-          <SelectField label="Category M" value={inputs.categoryM} onChange={update("categoryM")} options={["No", "Yes"]} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mt-3">
+          <SelectField label="Category M" value={inputs.categoryM} onChange={update("categoryM")} options={["No", "Yes"]} />
           <SelectField label="High Pressure" value={inputs.highPressure} onChange={update("highPressure")} options={["No", "Yes"]} />
           <SelectField label="Cyclic Service" value={inputs.cyclicService} onChange={update("cyclicService")} options={["No", "Yes"]} />
           <SelectField label="Severe Cyclic" value={inputs.severeCyclic} onChange={update("severeCyclic")} options={["No", "Yes"]} />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mt-3">
           <SelectField label="Corrosion Severity" value={inputs.corrosionSeverity} onChange={update("corrosionSeverity")} options={["Low", "Moderate", "Severe"]} />
         </div>
 

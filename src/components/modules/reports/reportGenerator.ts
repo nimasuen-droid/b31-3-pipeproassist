@@ -98,6 +98,7 @@ export function generateLineSummary(data: ReportData): string {
       ["Line Number:", fmt(i.lineNumber)],
       ["Service Description:", fmt(i.serviceDescription)],
       ["Service Type:", fmt(i.serviceType)],
+      ["Special Service:", fmt(i.specialService)],
       ["Fluid Phase:", fmt(i.fluidPhase)],
       ["Piping Category:", fmt(i.pipingCategory)],
       ["Unit System:", fmt(i.unitSystem)],
@@ -242,7 +243,7 @@ export function generateMaterialReport(data: ReportData): string {
   return [
     "MATERIAL / COMPONENT RECOMMENDATION REPORT",
     "=".repeat(60),
-    `Line: ${fmt(i.lineNumber)} | Service: ${fmt(i.serviceType)}`,
+    `Line: ${fmt(i.lineNumber)} | Service: ${fmt(i.serviceType)} | Function: ${fmt(i.specialService)}`,
     `Design: ${fmt(i.designPressure)} ${pUnit} @ ${fmt(i.designTemperature)}${tUnit}`,
     "",
     "PIPE MATERIAL",
@@ -367,6 +368,7 @@ export function generateSupportReport(data: ReportData): string {
     `NPS:                 ${fmt(i.nominalPipeSize)}`,
     `Pipe Material:       ${fmt(data.activePipeMaterial)}`,
     `Fluid Phase:         ${fmt(i.fluidPhase)}`,
+    `Special Service:     ${fmt(i.specialService)}`,
     `Insulation Type:     ${fmt(i.insulationType)}`,
     `Insulation Thick.:   ${fmt(i.insulationThickness)} ${lUnit}`,
     "",
@@ -389,6 +391,7 @@ export function generateChecklistReport(data: ReportData): string {
     ["Corrosion allowance defined", (i.corrosionAllowance || data.recommendations.corrosionAllowance.value) ? "✓ Set" : "○ Pending"],
     ["Test pressure defined", (i.testPressure || data.recommendations.testPressure.value) ? "✓ Set" : "○ Pending"],
     ["Service classification", i.serviceType ? "✓ Classified" : "○ Pending"],
+    ["Special service / function", i.specialService ? "✓ Defined" : "○ Pending"],
     ["Category M evaluation", i.categoryM ? "✓ Evaluated" : "○ Pending"],
     ["Severe cyclic check", i.severeCyclic ? "✓ Evaluated" : "○ Pending"],
     ["Support spacing", i.supportSpacing ? "✓ Defined" : "○ Pending"],
@@ -420,6 +423,7 @@ export function generateAuditReport(data: ReportData): string {
   };
 
   addEntry("Service Type", i.serviceType, "User Input");
+  addEntry("Special Service", i.specialService, "User Input");
   addEntry("Design Pressure", `${i.designPressure} ${pressureUnit(i.unitSystem === "Imperial" ? "Imperial" : "SI")}`, "User Input");
   addEntry("Design Temperature", `${i.designTemperature} ${tempUnit(i.unitSystem === "Imperial" ? "Imperial" : "SI")}`, "User Input");
   addEntry("Pipe Material", data.activePipeMaterial, o.pipeMaterial ? "Manual Override" : `Recommended: ${r.pipeMaterial.source}`);

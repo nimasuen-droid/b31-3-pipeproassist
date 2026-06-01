@@ -155,6 +155,28 @@ describe("engineering workflows", () => {
     }
   });
 
+  it("carries drain and vent line functions into PMS design basis and notes", () => {
+    const drainInputs = {
+      ...designInputs,
+      specialService: "Drain",
+    };
+    const drainRecommendations = getRecommendations(drainInputs);
+    const drainPms = generatePMS(drainInputs, drainRecommendations, drainRecommendations.pipeMaterial.value, noOverrides);
+
+    expect(drainPms.designBasis.specialService).toBe("Drain");
+    expect(drainPms.notes.some((note) => note.text.toLowerCase().includes("low-point valved drain"))).toBe(true);
+
+    const ventInputs = {
+      ...designInputs,
+      specialService: "Vent",
+    };
+    const ventRecommendations = getRecommendations(ventInputs);
+    const ventPms = generatePMS(ventInputs, ventRecommendations, ventRecommendations.pipeMaterial.value, noOverrides);
+
+    expect(ventPms.designBasis.specialService).toBe("Vent");
+    expect(ventPms.notes.some((note) => note.text.toLowerCase().includes("high-point valved vent"))).toBe(true);
+  });
+
   it("selects flange, fitting, gasket, and bolting data from referenced engineering rules", () => {
     const recommendations = getRecommendations(designInputs);
     const boltInfo = getBoltAssembly(recommendations.flangeClass?.value, designInputs.nominalPipeSize);

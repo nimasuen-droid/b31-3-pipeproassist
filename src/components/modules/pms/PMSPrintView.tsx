@@ -108,10 +108,16 @@ export const PMSPrintView = forwardRef<HTMLDivElement, PMSPrintViewProps>(
                 <td className="pms-basis-value">{db.materialGroup}</td>
               </tr>
               <tr>
-                <td className="pms-basis-label">RATING CLASS:</td>
-                <td className="pms-basis-value">{db.flangeRating}, {pms.ptRatingBlock?.standard || "ASME B16.5"}</td>
+                <td className="pms-basis-label">SPECIAL SERVICE:</td>
+                <td className="pms-basis-value">{db.specialService}</td>
                 <td className="pms-basis-label">FLUID PHASE:</td>
                 <td className="pms-basis-value">{db.fluidPhase}</td>
+              </tr>
+              <tr>
+                <td className="pms-basis-label">RATING CLASS:</td>
+                <td className="pms-basis-value">{db.flangeRating}, {pms.ptRatingBlock?.standard || "ASME B16.5"}</td>
+                <td className="pms-basis-label">REVISION:</td>
+                <td className="pms-basis-value">{db.revision}</td>
               </tr>
               <tr>
                 <td className="pms-basis-label">DESIGN PRESSURE:</td>

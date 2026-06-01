@@ -55,6 +55,7 @@ export interface PMSDesignBasis {
   specName: string;
   designCode: string;
   serviceType: string;
+  specialService: string;
   fluidPhase: string;
   designPressure: string;
   designTemperature: string;
@@ -213,6 +214,45 @@ function isHighTempService(tempC: number): boolean {
   return tempC > 425;
 }
 
+function normalizeSpecialService(value?: string): string {
+  return (value && value.trim()) || "Process";
+}
+
+function buildSpecialServiceNote(specialService: string, serviceType: string): string | null {
+  const special = specialService.toLowerCase();
+  const hazardousService = /hydrocarbon|sour|corrosive|hydrogen|oxygen|chloride|caustic/i.test(serviceType);
+
+  if (special === "process") return null;
+  if (special === "drain") {
+    return `${hazardousService ? "Hazardous/process " : ""}drain connection: provide low-point valved drain with plug or blind cap after the valve. Confirm closed-drain routing, depressurization, and freeze protection per project practice.`;
+  }
+  if (special === "vent") {
+    return `${hazardousService ? "Hazardous/process " : ""}vent connection: provide high-point valved vent with plug or blind cap after the valve. Confirm safe discharge location and hydrotest air-removal requirements per project practice.`;
+  }
+  if (special === "sample point") {
+    return "Sample point: confirm double isolation, sample cooler or depressurizing arrangement where hot, toxic, or pressurized service applies. Route sample discharge to a safe collection point.";
+  }
+  if (special === "utility connection") {
+    return "Utility connection: provide positive isolation from the process system and verify backflow prevention, hose connection rating, and contamination controls per project practice.";
+  }
+  if (special === "chemical injection") {
+    return "Chemical injection: verify injection quill, check valve, isolation valve, material compatibility, corrosion allowance, and injection-point mixing/impingement review.";
+  }
+  if (special === "instrument connection") {
+    return "Instrument connection: provide root valve and verify impulse-line material, pressure rating, heat tracing or sealing requirements, and accessibility for maintenance.";
+  }
+  if (special === "relief / flare") {
+    return "Relief / flare service: verify no liquid pockets, backpressure limits, low-point drains, PSV outlet forces, and flare-system design basis with process safety review.";
+  }
+  if (special === "temporary flushing") {
+    return "Temporary flushing connection: confirm temporary spool/hose rating, blinds, strainers, flushing velocity, reinstatement controls, and removal after commissioning.";
+  }
+  if (special === "bypass") {
+    return "Bypass line: verify isolation philosophy, valve locking/car-seal requirements, flow restriction, and operating procedure so the bypass cannot defeat process safeguards.";
+  }
+  return `${specialService}: review line-function-specific valve, branch, isolation, and safety requirements against project piping practice.`;
+}
+
 // ════════════════════════════════════════════════════════════════
 // P-T RATING BLOCK
 // ════════════════════════════════════════════════════════════════
@@ -269,6 +309,7 @@ export function generatePMS(
   const matGroupCode = getMaterialGroupCode(activePipeMaterial);
   const us = (inputs.unitSystem || "SI") as UnitSystem;
   const svc = inputs.serviceType || "General Hydrocarbon";
+  const specialService = normalizeSpecialService(inputs.specialService);
   const tempC = normalizeTempToC(inputs.designTemperature, us);
   let designP = parseFloat(inputs.designPressure) || 0;
 
@@ -328,6 +369,7 @@ export function generatePMS(
     specName: specName || `${svc} — ${matGroup} — Class ${flangeClass}`,
     designCode: "ASME B31.3",
     serviceType: svc,
+    specialService,
     fluidPhase: inputs.fluidPhase,
     designPressure: designPressureDisplay,
     designTemperature: `${inputs.designTemperature} ${tUnitLabel}`,
@@ -1070,6 +1112,17 @@ export function generatePMS(
   // ════════════════════════════════════════════════════════════
   // MATERIAL CONTINUITY CHECKS
   // ════════════════════════════════════════════════════════════
+
+  const specialServiceNote = buildSpecialServiceNote(specialService, svc);
+  if (specialServiceNote) {
+    addNote(
+      "service",
+      specialServiceNote,
+      "Project piping practice / ASME B31.3 design basis",
+      `Special Service / Line Function = ${specialService}`,
+      ["Valve - Ball (SB)", "Coupling (SB)", "Half Coupling (SB)", "Flange - Blind"],
+    );
+  }
 
   const materialContinuity: MaterialContinuityCheck[] = [];
 

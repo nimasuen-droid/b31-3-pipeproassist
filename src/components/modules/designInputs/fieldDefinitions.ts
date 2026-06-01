@@ -36,6 +36,16 @@ export const FIELD_DEFINITIONS: Record<string, FieldDefinition> = {
     commonMistakes: "Defaulting to Normal when Category M should apply. Applying Category D to flammable services (not permitted).",
     whenConservative: "When unsure between Normal and Category M, classify as Category M. The owner/operator makes the final determination.",
   },
+  specialService: {
+    label: "Special Service / Line Function",
+    definition: "The piping line function or special service modifier, such as process, drain, vent, sample point, chemical injection, instrument connection, relief/flare, flushing, or bypass.",
+    codeContext: "This is not a replacement for ASME B31.3 fluid service classification. It is a design-basis modifier used to drive PMS notes, small-bore connection details, valve/plug requirements, and commissioning/operability review.",
+    whyMatters: "Drain and vent points are common leak and operability risks. Capturing the line function prevents missing small-bore valves, plugs, caps, high-point vents, low-point drains, and special safety notes in the piping material specification.",
+    impact: "Drain/vent selections add PMS notes for valve plus plug/cap, orientation, hazardous-fluid handling, and hydrotest/commissioning review. Injection, sample, relief, and instrument functions add their own specialist review prompts.",
+    typicalRange: "Process, Drain, Vent, Sample Point, Utility Connection, Chemical Injection, Instrument Connection, Relief / Flare, Temporary Flushing, Bypass.",
+    commonMistakes: "Using service type to mean drain or vent. Service type should describe the process/utility fluid, while this field describes what the line or connection does.",
+    whenConservative: "If a small-bore connection can release hazardous process fluid, choose Drain or Vent rather than Process so the PMS carries isolation and plugging/capping notes.",
+  },
   categoryM: {
     label: "Category M Fluid Service",
     definition: "A fluid service where exposure to even small quantities of the fluid is judged to produce serious irreversible harm to persons on breathing or bodily contact, even with prompt restorative measures.",
